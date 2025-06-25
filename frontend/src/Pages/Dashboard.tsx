@@ -71,8 +71,8 @@ const Dashboard: React.FC = () => {
             {/* Status and Incident Section */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Status Overview */}
-              <div className="lg:col-span-2">
-                <div className="bg-gradient-to-b from-[#404040] to-[#1c1b1b] text-white rounded-2xl shadow-lg p-6 mb-6">
+              <div className="lg:col-span-2 ">
+                <div className=" bg-[#1c1c1e]  text-white rounded-2xl shadow-lg p-6 mb-6">
                   <h3 className="text-xl font-semibold mb-4 ">
                     Status Overview
                   </h3>
@@ -137,7 +137,7 @@ const Dashboard: React.FC = () => {
 
                 {stats.recentIncidents()?.length > 0 && (
                   <div className="shadow-lg p-6">
-                    <div className="flex items-center justify-between bg-gradient-to-b from-[#0f0f0f] to-[#1a1a1a] mb-4">
+                    <div className="flex items-center justify-between bg-gradient-to-b  bg-[#1c1b1b] mb-4">
                       <h3 className="text-xl font-semibold text-white ">
                         Recent Incidents
                       </h3>
@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
               </div>
 
               <div>
-                <div className="bg-gradient-to-b from-[#0f0f0f] to-[#3b3b3b] rounded-2xl shadow-lg p-6">
+                <div className="bg-gradient-to-b bg-[#1c1c1e] min-h-48  rounded-2xl shadow-lg p-6">
                   <h3 className="text-xl font-semibold mb-4 text-white dark:text-white">
                     Latest Monitors
                   </h3>
