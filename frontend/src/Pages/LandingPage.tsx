@@ -9,7 +9,7 @@ export default function Landing() {
       <main className="flex-1 flex flex-col items-center overflow-x-hidden w-full bg-gradient-to-b from-[#0f0f0f] to-[#1a1a1a]">
         
         {/* Hero */}
-        <div className="relative w-full flex justify-center py-2">
+        <div className="relative w-full flex justify-center py-2 sm:py-3">
           <Hero />
 
           {/* Pulse Background Glow */}
@@ -18,8 +18,9 @@ export default function Landing() {
         </div>
 
         {/* Features Section */}
-        <FeaturesSection />
+       
       </main>
+       <FeaturesSection />
     </div>
   );
 }

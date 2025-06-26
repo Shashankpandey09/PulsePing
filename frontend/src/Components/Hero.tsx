@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   const { isSignedIn } = useUser();
   return (
-    <section className="relative overflow-hidden min-h-[90vh]  text-white px-6 sm:px-10 py-24 flex items-center justify-between gap-8 flex-col  lg:flex-row">
+    <section className="relative overflow-hidden min-h-[90vh]  text-white px-6 py-24 sm:px-10  flex items-center justify-between gap-8 flex-col  lg:flex-row">
       
     
       {/* Content Section */}

@@ -5,7 +5,7 @@ let socket: WebSocket | null = null;
 
 export function GetSocket(token: string|null) {
   if (!socket || socket.readyState === WebSocket.CLOSED) {
-    socket = new WebSocket(`ws://localhost:3000`);
+    socket = new WebSocket(`wss://backendping.shashankpandey.dev`);
 
     socket.onopen = () => {
       console.log("WebSocket connected");
@@ -24,7 +24,7 @@ export function GetSocket(token: string|null) {
         // updated contains monitor fields plus updated.history array
         const store = useMonitor.getState();
         const list = store.monitor || [];
-        const idx = list.findIndex(m => m.id === updated.id);
+        const idx = list.findIndex(m => m.id == updated.id);
 
         if (idx >= 0) {
           const newList = [...list];

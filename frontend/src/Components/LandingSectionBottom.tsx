@@ -38,7 +38,7 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section className="py-16 w-full">
+    <section className=" py-16  w-full">
       <div className="max-w-6xl mx-auto px-4">
         {/* Stats Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-12">
