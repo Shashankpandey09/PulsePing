@@ -22,6 +22,7 @@ export function GetSocket(token: string|null) {
       if (data.type === "monitor_with_history") {
         const updated: any = data.payload;
         // updated contains monitor fields plus updated.history array
+        console.log('updated',updated)
         const store = useMonitor.getState();
         const list = store.monitor || [];
         const idx = list.findIndex(m => m.id == updated.id);

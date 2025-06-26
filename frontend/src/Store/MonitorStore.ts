@@ -47,7 +47,12 @@ export const useMonitor=create<MonitorStoreState>((set,get)=>({
         
 
      } catch (error) {
-        set({loading:false,error:(error) as string})
+       if (axios.isAxiosError(error)) {
+  set({ loading: false, error: error.response?.data?.message || error.message });
+} else {
+  set({ loading: false, error: "Something went wrong." });
+}
+
         console.log(error)
      }
     },
@@ -66,7 +71,12 @@ export const useMonitor=create<MonitorStoreState>((set,get)=>({
         await get().getMonitors(token)
         return true;
      } catch (error:any) {
-        set({loading:false,error:error,buttonLoad:false})
+     if (axios.isAxiosError(error)) {
+  set({ loading: false, error: error.response?.data?.message || error.message });
+} else {
+  set({ loading: false, error: "Something went wrong." });
+}
+
         console.log(error)
         return false;
      }
