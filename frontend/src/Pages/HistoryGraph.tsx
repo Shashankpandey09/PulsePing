@@ -5,7 +5,8 @@ import { useToken } from "../hooks/getToken";
 import { useParams } from "react-router-dom";
 
 const HistoryGraph = () => {
-  const { getMonitors, monitor } = useMonitor();
+  const  getMonitors = useMonitor((s)=>s.getMonitors);
+  const monitor=useMonitor((s)=>s.monitor)
   const { token } = useToken();
   const { id } = useParams();
   const monitorId = Number(id);
