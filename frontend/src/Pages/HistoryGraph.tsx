@@ -18,6 +18,7 @@ const HistoryGraph = () => {
   }, [token, id]);
 
   const filteredMonitor = monitor.find((m) => m.id === monitorId);
+  console.log('rendered')
 
   if (!filteredMonitor) {
     return <div className="w-full h-full flex items-center justify-center text-white">Loading monitor...</div>;
