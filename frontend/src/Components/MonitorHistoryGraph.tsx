@@ -241,6 +241,7 @@ export const MonitorGraph: React.FC<Props> = ({ history = [] ,monitor}) => {
     {/* Chart */}
     <div style={{ height: '500px' }}>
       <Chart
+      key={history.length}
         type={view === 'status' ? 'bar' : 'line'}
         data={data}
         options={options}
