@@ -50,7 +50,7 @@ interface Props {
   monitor:Monitor
 }
 
-export const MonitorGraph: React.FC<Props> = ({ history = [] ,monitor}) => {
+export const MonitorGraph: React.FC<Props> = ({ history ,monitor}) => {
   const [view, setView] = useState<'both' | 'response' | 'status'>('both');
 
   // Prepare chart data
