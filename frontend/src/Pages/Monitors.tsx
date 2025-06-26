@@ -10,7 +10,7 @@ import { ToastContainer,Bounce } from 'react-toastify';
 const Monitors = () => {
     const {getMonitors,monitor,loading}=useMonitor();
     const {token}=useToken()
-     console.log(monitor,token)
+
   
 useEffect(()=>{
   if(token && !monitor.length)
