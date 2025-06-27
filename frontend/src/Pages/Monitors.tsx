@@ -13,7 +13,7 @@ const Monitors = () => {
 
   
 useEffect(()=>{
-  if(token && !monitor.length)
+  if(token && !monitor?.length)
    getMonitors(token) 
 },[token])
   
