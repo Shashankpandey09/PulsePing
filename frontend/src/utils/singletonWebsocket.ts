@@ -31,6 +31,7 @@ export function GetSocket(token: string|null) {
           const newList = [...list];
           newList[idx] = {...updated}; // replaces entire monitor object including history
           useMonitor.setState({ monitor: newList });
+         
         } else {
           useMonitor.setState({ monitor: [...list, updated] });
         }

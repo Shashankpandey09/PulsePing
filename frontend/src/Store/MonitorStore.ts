@@ -1,6 +1,7 @@
 import {create} from 'zustand'
 import axios from 'axios'
 import type { Monitor,history } from '../types/types'
+import Monitors from '../Pages/Monitors'
 
 
  
@@ -58,7 +59,6 @@ export const useMonitor=create<MonitorStoreState>((set,get)=>({
     },
     addMonitors:async(payload,token)=>{
      try {
-   
         
         set({buttonLoad:true});
         await axios.post(`${import.meta.env.VITE_BACKEND_URL}/monitor/create`,payload,{
