@@ -31,7 +31,7 @@ const MonitorCard = ({name,url,interval,history,id}:MonitorCard) => {
               <Link to={`/history/${id}`} className="text-white hover:scale-125 transition-scale ease-in-out duration-300" ><ArrowUpRight className="w-5 h-5"/></Link>
                 <span
           className={`w-3 h-3 rounded-full ${
-           history[0].lastStatus=== "down" ? "bg-red-400 animate-pulse" : "bg-green-400"
+           history[0]?.lastStatus=== "down" ? "bg-red-400 animate-pulse" : "bg-green-400"
           }`}
           
         />
