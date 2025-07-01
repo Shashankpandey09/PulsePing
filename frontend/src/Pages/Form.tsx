@@ -129,8 +129,8 @@ const {addMonitors,buttonLoad,error}=useMonitor()
       <div className="relative z-10 max-w-xl w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 text-gray-300 text-sm leading-relaxed">
         <h3 className="text-white text-lg font-semibold mb-2">📝 Monitor Priority Notes</h3>
         <ul className="list-disc list-inside space-y-1">
-          <li><strong>Critical (5min)</strong>: Best for essential services where uptime is crucial.</li>
-          <li><strong>High Priority (30min)</strong>: Good for important services that can tolerate slight delays.</li>
+          <li><strong>Critical (1min)</strong>: Best for essential services where uptime is crucial.</li>
+          <li><strong>High Priority (10min)</strong>: Good for important services that can tolerate slight delays.</li>
           <li><strong>Low Priority (59min)</strong>: Ideal for less-critical endpoints or to conserve resources.</li>
         </ul>
       </div>
