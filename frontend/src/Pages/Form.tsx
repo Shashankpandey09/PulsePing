@@ -10,7 +10,7 @@ const AddMonitor = () => {
   const [inputValues, setInput] = useState({
     name: "",
     url: "",
-    interval: 59,
+    interval: 1,
   });
    const { getToken } = useAuth(); 
    const navigate=useNavigate();
@@ -97,8 +97,8 @@ const {addMonitors,buttonLoad,error}=useMonitor()
             id="interval"
             className="bg-black/30 border border-white/10 px-4 py-2 rounded-lg text-white focus:outline-none focus:border-cyan-400 transition"
           >
-            <option value={5}>🔴 Critical (Every 5min)</option>
-            <option value={30}>🟠 High Priority (Every 30min)</option>
+            <option value={1}>🔴 Critical (Every 1min)</option>
+            <option value={10}>🟠 High Priority (Every 10min)</option>
             <option value={59}>🟢 Low Priority (Every 59min)</option>
           </select>
         </div>
