@@ -1,5 +1,6 @@
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight,TrashIcon } from "lucide-react"
 import { Link } from "react-router-dom";
+
 
 type history={
      id: number;
@@ -14,13 +15,14 @@ type MonitorCard={
     interval:number,
     currentStatus:string|null
     history:history[]
-    id:number
+    id:number,
+setModal: (payload: { state: boolean; id: number | null }) => void;
 }
-const MonitorCard = ({name,url,interval,history,id}:MonitorCard) => {
+const MonitorCard = ({name,url,interval,history,id,setModal}:MonitorCard) => {
 
     const getIntervalLabel=()=>{
-        if(interval==5) return "critical (checks every 5 min)"
-          if(interval==30) return "High Priority (checks every 30 min)"
+        if(interval==1) return "critical (checks every 5 min)"
+          if(interval==10) return "High Priority (checks every 30 min)"
             if(interval==59) return "Low Priority (checks every 59 min)"
     }
   return (
@@ -28,10 +30,12 @@ const MonitorCard = ({name,url,interval,history,id}:MonitorCard) => {
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-white font-semibold text-lg">{name}</h3>
         <div className="flex gap-3 items-center">
+         <button onClick={()=>setModal({state:true,id:id})}><TrashIcon className="w-4 h-4  cursor-pointer text-white hover:text-red-600 transition-colors duration-200 "/></button> 
               <Link to={`/history/${id}`} className="text-white hover:scale-125 transition-scale ease-in-out duration-300" ><ArrowUpRight className="w-5 h-5"/></Link>
                 <span
           className={`w-3 h-3 rounded-full ${
-           history[0]?.lastStatus=== "down" ? "bg-red-400 animate-pulse" : "bg-green-400"
+            history[0]?(history[0]?.lastStatus=== "down" ? "bg-red-400 animate-pulse" : "bg-green-400"):' bg-yellow-400'
+        
           }`}
           
         />

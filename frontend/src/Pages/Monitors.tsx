@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useMonitor } from "../Store/MonitorStore"
 import MonitorCard from "../Components/MonitorCard"
 import Nav from "../Components/Nav"
@@ -6,11 +6,19 @@ import Sidebar from "../Components/Sidebar"
 import { useToken } from "../hooks/getToken"
 import MonitorCardSkeleton from "../Components/MonitorCardSkeleton"
 import { ToastContainer,Bounce } from 'react-toastify';
+import Deletebox from "../Components/Deletebox"
 
 const Monitors = () => {
     const {getMonitors,monitor,loading}=useMonitor();
     const {token}=useToken()
-
+    const [modal,setModal]=useState<{state:boolean,id:number|null}>({
+      state:false,
+      id:null
+    });
+    const onCancel=()=>{
+      setModal({...modal,state:false})
+    }
+  
   
 useEffect(()=>{
   if(token && !monitor?.length)
@@ -23,9 +31,10 @@ useEffect(()=>{
   //   { name: "Docs", url: "https://docs.myapp.com", interval: 59, currentStatus: "up" },
   // ];
   return (
-    <div className="min-h-screen bg-[#0f0f0f]">
+    <div className="min-h-screen bg-[#0f0f0f] relative">
         <Nav/>
         <Sidebar/>
+      {modal.state&& <Deletebox onCancel={onCancel} id={Number(modal.id)}  />}  
    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 ">
    
   {loading ? (
@@ -37,7 +46,7 @@ useEffect(()=>{
 ) : monitor?.length ? (
   <>
     {monitor.map((m) => (
-      <MonitorCard key={m.id} {...m} />
+      <MonitorCard key={m.id} setModal={setModal} {...m} />
     ))}
   </>
 ) : (

@@ -13,7 +13,7 @@ async function Worker() {
   try {
     await workerClient.connect();
     console.log("worker connected");
-    const listKey = [`monitor-queue:5`, `monitor-queue:10`, `monitor-queue:30`];
+    const listKey = [`monitor-queue:1`, `monitor-queue:10`, `monitor-queue:30`];
     while (true) {
       const result = await workerClient.brPop(listKey, 0);
       console.log('result',JSON.parse(result!.element))

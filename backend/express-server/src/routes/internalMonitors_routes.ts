@@ -24,20 +24,22 @@ internalMonitor_routes.post('/updateMonitorsandHist',async(req,res)=>{
    const {status,responseTime,monitorId}=req.body;
    try {
       const MONITOR_DATA=await prisma.$transaction(async(c)=>{
-      const monitor=await c.monitor.update({
-         where:{id:monitorId},
-         data:{currentStatus:status},
-         include:{user:{select:{email:true}},history:{take:30,orderBy:{lastPing:'desc'}}}
-      })
-      await c.history.create({
+     
+     const history= await c.history.create({
          data:{
             monitorId:monitorId,
             lastStatus:status,
             responseTime:responseTime
          }, 
       })
-      return monitor
+       const monitor=await c.monitor.update({
+         where:{id:monitorId},
+         data:{currentStatus:status},
+         include:{user:{select:{email:true}},history:{take:30,orderBy:{lastPing:'desc'}}}
       })
+      return {monitor,history}
+      })
+      MONITOR_DATA.monitor.history=[...MONITOR_DATA.monitor.history,MONITOR_DATA.history]
       res.status(200).json({monitor:MONITOR_DATA})
       return;
    } catch (error) {
