@@ -23,7 +23,7 @@ clerkWebhookRouter.post(
       const {type}=req.clerkPayload
       switch (type){
         case 'user.created':
-        case 'user updated':
+        case 'user.updated':
          await prisma.user.upsert({
             where:{clerkId:(req.clerkPayload.data["id"])},
             update:{
