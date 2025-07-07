@@ -21,8 +21,8 @@ setModal: (payload: { state: boolean; id: number | null }) => void;
 const MonitorCard = ({name,url,interval,history,id,setModal}:MonitorCard) => {
 
     const getIntervalLabel=()=>{
-        if(interval==1) return "critical (checks every 5 min)"
-          if(interval==10) return "High Priority (checks every 30 min)"
+        if(interval==1) return "critical (checks every 1 min)"
+          if(interval==10) return "High Priority (checks every 10 min)"
             if(interval==59) return "Low Priority (checks every 59 min)"
     }
   return (

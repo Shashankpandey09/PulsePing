@@ -3,7 +3,7 @@ import { useMonitor } from "../Store/MonitorStore";
 
 
 export const useMonitorStat=()=>{
- const { monitor} = useMonitor();
+ const  monitor = useMonitor(s=>s.monitor);
  const monitorList=Array.isArray(monitor)?monitor:[]
 
 const stats = useMemo(() => {
