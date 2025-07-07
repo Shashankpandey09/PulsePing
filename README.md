@@ -8,4 +8,5 @@
     - **Alert Notifications**: Email alerts via Nodemailer when a monitor fails.
     - **Real‑time Dashboard**: Live status updates using WebSocket and Clerk authentication.
     - **Historical Graphs**: Uptime percentage and response time trends over 24h
-![image](https://github.com/user-attachments/assets/4663bebb-304e-47c4-9899-93b19c78ecd6)
+ ![image](https://github.com/user-attachments/assets/4663bebb-304e-47c4-9899-93b19c78ecd6)
+  
