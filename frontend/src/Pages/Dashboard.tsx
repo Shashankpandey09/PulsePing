@@ -12,7 +12,8 @@ import { useMonitorStat } from "../hooks/getMonitorStats";
 import { SkeletonDashboard } from "../Components/Skeleton";
 
 const Dashboard: React.FC = () => {
-  const { getMonitors, monitor, loading } = useMonitor();
+  const { getMonitors,  loading } = useMonitor();
+  const monitor=useMonitor(s=>s.monitor)
   const { token } = useToken();
   //  const recentIncidents=useGetRecentIncidents()
   const stats = useMonitorStat();

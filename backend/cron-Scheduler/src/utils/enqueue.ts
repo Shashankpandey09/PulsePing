@@ -11,12 +11,13 @@ export const enqueueForInterval = async (interval: number) => {
     if (batch.length === batchSize) {
       await schedulerClient.lPush(listKey, batch);
       console.log('pushed batch ')
+      await new Promise(resolve=>setTimeout(resolve,2000))
       batch = [];
     }
   }
 
   if (batch.length > 0) {
     await schedulerClient.lPush(listKey, batch);
-    console.log('pushed batch ',1)
+    
   }
 };
