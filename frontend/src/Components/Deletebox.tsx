@@ -7,7 +7,7 @@ const Deletebox: React.FC<{ onCancel: () => void; id: number }> = ({ onCancel, i
   const {token} = useToken()
   const [isDeleting, setIsDeleting] = useState(false)
   const monitor=useMonitor((s)=>s.monitor)
-   console.log(token)
+  
   const handleDelete = async () => {
     setIsDeleting(true)
     try {

@@ -5,7 +5,7 @@ let socket: WebSocket | null = null;
 
 export function GetSocket(token: string|null) {
   if (!socket || socket.readyState === WebSocket.CLOSED) {
-    socket = new WebSocket(`wss://backendping.shashankpandey.dev`);
+    socket = new WebSocket(`ws://localhost:3000`);
 
     socket.onopen = () => {
       console.log("WebSocket connected");
@@ -38,7 +38,9 @@ export function GetSocket(token: string|null) {
       }
       // handle other data.type if needed...
     };
-    socket.onclose = () => { socket = null; };
+    socket.onclose = () => { socket = null;
+      console.log('closed')
+     };
     socket.onerror = (err) => console.error("WebSocket error", err);
   }
   return socket;
