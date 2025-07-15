@@ -5,7 +5,7 @@ let socket: WebSocket | null = null;
 
 export function GetSocket(token: string|null) {
   if (!socket || socket.readyState === WebSocket.CLOSED) {
-    socket = new WebSocket(`ws://localhost:3000`);
+    socket = new WebSocket(`wss://backendPing.shashankpandey.dev`);
 
     socket.onopen = () => {
       console.log("WebSocket connected");
