@@ -27,40 +27,28 @@ monitorRoute.post("/create", async (req, res) => {
       return;
     }
 
-    const { status, responseTime } = await checkUrl(req.body.url);
 
-    const { monitor, history } = await prisma.$transaction(async (c) => {
+      await prisma.$transaction(async (c) => {
       const monitorCount = await c.monitor.count({ where: { userId } });
       if (monitorCount >= 5) {
         throw new Error(`Maximum limits reached ${monitorCount}`);
       }
-      const monitor = await c.monitor.create({
+     await c.monitor.create({
         data: {
           userId,
           name: req.body.name,
           url: req.body.url,
           interval: req.body.interval,
-          currentStatus: status,
+        
         },
       });
-      const history = await c.history.create({
-        data: {
-          monitorId: monitor.id,
-          lastStatus: status,
-          responseTime,
-        },
-        include: { monitor: true },
-      });
-      return { monitor, history };
-    });
-
-
+  });
 
     res.status(201).json({
       message:
-        status === "up"
-          ? "Monitor created successfully"
-          : "Monitor created but initial check failed",
+      
+          "Monitor created successfully"
+          
     });
     return;
   } catch (error) {

@@ -5,23 +5,20 @@ import { clerkMiddleware } from "@clerk/express";
 import cors from "cors";
 import clerkWebhookRouter from "./routes/Register";
 import monitorRoute from "./routes/Monitor";
-import { WebSocketServer, WebSocket } from "ws";
+import { WebSocketServer } from "ws";
 import { createClient } from "redis";
-import { verifyToken } from "@clerk/express";
 import { requireAuth } from "@clerk/express";
 import { apiKeyAuth } from "./middleware/apiKey_Auth";
 import { internalMonitor_routes } from "./routes/internalMonitors_routes";
-
+import { verifyToken } from "@clerk/backend";
+import { PubsubManager } from "./lib/PubsubManager";
+import { AuthSocket } from "./types";
 const app = express();
 dotenv.config();
 //creating redisClient
 const redisClient = createClient({
   url: `${process.env.REDIS_CLIENT}`,
 });
-const userSocket = new Map();
-interface AuthSocket extends WebSocket {
-  userID?: string;
-}
 
 app.use(
   cors({
@@ -36,13 +33,6 @@ app.use(
   })
 );
 
-// Adding ngrok bypass header HERE (before routes)
-// app.use((_req, res, next) => {
-//   res.header("ngrok-skip-browser-warning", "true");
-//   next();
-// });
-
-// 3. Webhook route (no JSON parsing)
 app.use("/clerk-webhook", clerkWebhookRouter);
 
 app.use(express.json());
@@ -67,6 +57,7 @@ async function startServer() {
     });
     //upgrading it to the websocket server
     const wss = new WebSocketServer({ server: httpServer });
+    console.log(process.env.CLERK_ISSUER);
 
     wss.on("connection", (ws: AuthSocket) => {
       ws.on("error", (err) => console.error(err));
@@ -75,61 +66,39 @@ async function startServer() {
         const token = parsed_Data.token;
         // console.log(token)
         try {
-          console.log(process.env.CLERK_JWT_KEY);
+          console.log(process.env.CLERK_ISSUER);
           const result = await verifyToken(token, {
-           
             issuer: process.env.CLERK_ISSUER!,
             authorizedParties: [process.env.FRONTEND_API!],
             jwtKey: process.env.CLERK_JWT_KEY,
             skipJwksCache: true,
           });
-         
+
           const userID = result?.sub;
           console.log("no err", result);
           ws.userID = userID;
 
-          const existingSocket = userSocket.get(userID) || [];
-          existingSocket.push(ws);
-          userSocket.set(userID, existingSocket);
+          PubsubManager.getInstance().subscribe(userID, ws);
         } catch (error) {
           console.log("hey");
           ws.close(4001, `error has occ-${error} `);
           return;
         }
         ws.on("close", () => {
-          const allSockets = userSocket.get(ws.userID) || [];
-
-          const filtered = allSockets.filter((sock: AuthSocket) => sock !== ws);
-
-          if (filtered.length === 0) {
-            userSocket.delete(ws.userID);
-          } else {
-            userSocket.set(ws.userID, filtered);
-          }
+          PubsubManager.getInstance().unSubscribe(ws.userID!, ws);
         });
       });
     });
     //subscribing my Server to the channel Monitor update
-    await redisClient.subscribe("monitor_update", (message) => {
-      //writing socket code for realtime update for a specific user
-      const payloadData = JSON.parse(message);
-      const data = {
-        type: "monitor_with_history",
-        payload: payloadData,
-      };
-      //getting sockets from ws object
-      const sockets = userSocket.get(payloadData.userId);
-
-      sockets &&
-        sockets.forEach((ws: AuthSocket) => {
-          if (ws && ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify(data));
-          }
-        });
-    });
   } catch (error) {
     console.log("error occurred", error);
   }
 }
-
+const shutdown=async()=>{
+  console.log('shutting down...');
+  await PubsubManager.getInstance().disconnect();
+  process.exit(0)
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 startServer();
