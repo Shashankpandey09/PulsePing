@@ -25,14 +25,15 @@
 - Added Clerk Web hooks for authentication
 ![image4](https://github.com/user-attachments/assets/63d4785c-71af-43f2-a6eb-0855f21cdfca)
 
-**2. Subscriber API & WebSocket Server:**
+**2. Subscriber API & WebSocket Server + Pubsubs With Singleton Pattern:**
 
 - Runs on **port 3000**
 - Subscribes to status changes from Redis
 - Authenticates users via **Clerk JWT**
 - Broadcasts updates to FE using WebSockets
 
-![code](https://github.com/user-attachments/assets/ae8f5f0e-6ded-42aa-bb56-69411a530a4f)
+<img width="768" height="741" alt="image" src="https://github.com/user-attachments/assets/8de00d1a-a55e-4f0d-afc2-55bb4179801a" />
+
 
 
 **3. Database (PostgreSQL):**
