@@ -204,7 +204,7 @@ export const MonitorGraph: React.FC<Props> = ({ history ,monitor}) => {
       boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
     }}>
       <h2 style={{ marginBottom: '8px', fontSize: '20px', color: BRIGHT_GREEN }}>{monitor?.name}</h2>
-      <p style={{ margin: '4px 0' }}><strong>URL:</strong> {monitor?.url}</p>
+      <p style={{ margin: '4px 0' }}><strong>URL:</strong> {monitor?.url.length>50?monitor?.url.slice(0,50)+"...":monitor?.url}</p>
       <p style={{ margin: '4px 0' }}><strong>Check Interval:</strong> Every {monitor?.interval} min</p>
       {monitor?.currentStatus && (
         <p style={{ margin: '4px 0' }}>

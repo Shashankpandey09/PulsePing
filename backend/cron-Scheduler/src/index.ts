@@ -11,8 +11,8 @@ const StartScheduler = async() => {
 await schedulerClient.connect()
 console.log('client Connected')
   //scheduling jobs
-  nodeCron.schedule("*/5 * * * *", () => {
-    enqueueForInterval(5).catch((err: any) => console.log(err));
+  nodeCron.schedule("*/1 * * * *", () => {
+    enqueueForInterval(1).catch((err: any) => console.log(err));
   });
   nodeCron.schedule("*/10 * * * *", () => {
     enqueueForInterval(10).catch((err: any) => console.log(err));

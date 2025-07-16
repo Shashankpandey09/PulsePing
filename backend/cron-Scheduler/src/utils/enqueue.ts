@@ -8,6 +8,7 @@ export const enqueueForInterval = async (interval: number) => {
 
   for await (const mon of fetchMonitorsByIntervals(interval)) {
     batch.push(mon);
+    console.log(batch)
     if (batch.length === batchSize) {
       await schedulerClient.lPush(listKey, batch);
       console.log('pushed batch ')
@@ -17,6 +18,7 @@ export const enqueueForInterval = async (interval: number) => {
   }
 
   if (batch.length > 0) {
+    console.log('pushed')
     await schedulerClient.lPush(listKey, batch);
     
   }

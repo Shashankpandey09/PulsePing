@@ -2,10 +2,12 @@ import { createClient } from "redis";
 import { checkUrl } from "./utils/CheckMonitor";
 import dotenv from "dotenv";
 import { UpdateMonitor_createHistory } from "./utils/UpdateMon_createHistory";
+dotenv.config();
+
 const workerClient = createClient({
   url:`${process.env.REDIS_CLIENT}`
 });
-dotenv.config();
+
 // have to brpop one by one
 //check the url update the db
 async function Worker() {
@@ -18,7 +20,8 @@ async function Worker() {
       const result = await workerClient.brPop(listKey, 0);
       console.log('result',JSON.parse(result!.element))
       const monitor = JSON.parse(result!.element);
-      const prevStatus = monitor.currentStatus;
+      const prevStatus = monitor.currentStatus||null;
+      console.log('prevstat->',prevStatus)
       const { status, responseTime } = await checkUrl(monitor.url);
       // doing the db status update
       const UpdatedMonitor = await UpdateMonitor_createHistory(
@@ -28,7 +31,7 @@ async function Worker() {
       );
       // console.log('updateMonitor',UpdatedMonitor)
       //sending the monitor to the email queue
-      console.log('prevStatus-->',prevStatus,'currentStatus---->',status)
+      console.log('prevStatus-->',prevStatus,'currentStatus---->',UpdatedMonitor.currentStatus)
       if (prevStatus!==status) {
         await workerClient.lPush(
           "emailQueue",
@@ -44,11 +47,12 @@ async function Worker() {
       }
       //publishing to the express+websocket service
       if(UpdatedMonitor){
+         console.log('reached publisher')
       await workerClient.publish(
         "monitor_update",
         JSON.stringify(UpdatedMonitor)
       );
-      console.log('reached publisher')
+     
     }
     }
   } catch (error) {
