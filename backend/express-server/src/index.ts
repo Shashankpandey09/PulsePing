@@ -75,7 +75,7 @@ async function startServer() {
 
           const userID = result?.sub;
           console.log("no err", result);
-          ws.userID = userID;
+          ws.userID = userID; 
 
           PubsubManager.getInstance().subscribe(userID, ws);
         } catch (error) {
