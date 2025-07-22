@@ -2,7 +2,7 @@ import { Router } from "express";
 import {  getAuth } from "@clerk/express";
 import { prisma } from "../lib/prisma";
 import { z } from "zod";
-import { checkUrl } from "../utils/checkUrl";
+
 
 const monitorRoute = Router();
 

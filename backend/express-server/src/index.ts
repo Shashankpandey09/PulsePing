@@ -10,7 +10,7 @@ import { createClient } from "redis";
 import { requireAuth } from "@clerk/express";
 import { apiKeyAuth } from "./middleware/apiKey_Auth";
 import { internalMonitor_routes } from "./routes/internalMonitors_routes";
-import { verifyToken } from "@clerk/backend";
+import { verifyToken } from "@clerk/clerk-sdk-node";
 import { PubsubManager } from "./lib/PubsubManager";
 import { AuthSocket } from "./types";
 const app = express();
@@ -68,10 +68,9 @@ async function startServer() {
         try {
           console.log(process.env.CLERK_ISSUER);
           const result = await verifyToken(token, {
-            issuer: process.env.CLERK_ISSUER!,
             authorizedParties: [process.env.FRONTEND_API!],
             jwtKey: process.env.CLERK_JWT_KEY,
-            skipJwksCache: true,
+           skipJwksCache: false,
           });
 
           const userID = result?.sub;
