@@ -1,0 +1,26 @@
+name: PulsePing CI
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - "backend/**"
+      - "github/workflows/**"
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: checkout repo
+          uses: actions/checkout@v3
+        
+        - name: setup docker BuildX
+          uses: docker/setup-buildx-action@v2
+       
+        - name: Build backend images
+          working-directory: backend
+          run: docker-compose build
+
+        
+
