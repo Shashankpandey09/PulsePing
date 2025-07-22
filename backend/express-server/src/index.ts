@@ -16,9 +16,7 @@ import { AuthSocket } from "./types";
 const app = express();
 dotenv.config();
 //creating redisClient
-const redisClient = createClient({
-  url: `${process.env.REDIS_CLIENT}`,
-});
+
 
 app.use(
   cors({
