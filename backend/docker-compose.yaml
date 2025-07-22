@@ -17,7 +17,7 @@ services:
       - express-app
     env_file:
       - ./cron-Scheduler/.env
-    restart: always
+    restart: always  
 
   
   check-worker:
