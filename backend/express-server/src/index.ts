@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 async function startServer() {
   try {
     //connecting redisClient
-    await redisClient.connect();
+  
     //creating an http server
     const httpServer = app.listen(process.env.PORT || 3000, () => {
       console.log(`server listening on port ${process.env.PORT}`);
