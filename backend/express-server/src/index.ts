@@ -6,7 +6,6 @@ import cors from "cors";
 import clerkWebhookRouter from "./routes/Register";
 import monitorRoute from "./routes/Monitor";
 import { WebSocketServer } from "ws";
-import { createClient } from "redis";
 import { requireAuth } from "@clerk/express";
 import { apiKeyAuth } from "./middleware/apiKey_Auth";
 import { internalMonitor_routes } from "./routes/internalMonitors_routes";
@@ -46,9 +45,7 @@ app.get("/", (req, res) => {
 });
 
 async function startServer() {
-  try {
-    //connecting redisClient
-  
+  try { 
     //creating an http server
     const httpServer = app.listen(process.env.PORT || 3000, () => {
       console.log(`server listening on port ${process.env.PORT}`);
