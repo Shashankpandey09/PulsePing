@@ -6,10 +6,10 @@ import { Request, Response } from 'express';
 import { prisma } from '../lib/prisma';
 const clerkWebhookRouter = Router();
 
-// Configure route-specific middleware chain
+
 clerkWebhookRouter.post(
   '/signup',
-  // 1. Raw body parser must come first
+  // 1. Raw body parser 
   bodyParser.raw({ type: 'application/json' }),
   // 2. Webhook verification middleware
   clerkWebHook,

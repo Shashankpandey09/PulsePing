@@ -22,5 +22,4 @@ console.log('client Connected')
   });
   console.log("Schedulers Started Working");
 };
-//if this function is called from the file where it is written then only execute it else if imported and then called don't execute it
-if (require.main === module) StartScheduler();
+ StartScheduler();
