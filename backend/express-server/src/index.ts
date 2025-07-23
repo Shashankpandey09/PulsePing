@@ -80,6 +80,7 @@ async function startServer() {
         }
         ws.on("close", async() => {
          await PubsubManager.getInstance().unSubscribe(ws.userID!, ws);
+     
         });
       });
     });
