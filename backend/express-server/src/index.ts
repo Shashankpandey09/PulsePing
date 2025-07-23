@@ -72,14 +72,14 @@ async function startServer() {
           console.log("no err", result);
           ws.userID = userID; 
 
-          PubsubManager.getInstance().subscribe(userID, ws);
+          await PubsubManager.getInstance().subscribe(userID, ws);
         } catch (error) {
           console.log("hey");
           ws.close(4001, `error has occ-${error} `);
           return;
         }
-        ws.on("close", () => {
-          PubsubManager.getInstance().unSubscribe(ws.userID!, ws);
+        ws.on("close", async() => {
+         await PubsubManager.getInstance().unSubscribe(ws.userID!, ws);
         });
       });
     });
